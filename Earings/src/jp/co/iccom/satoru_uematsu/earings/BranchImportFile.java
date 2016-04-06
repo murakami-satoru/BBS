@@ -8,28 +8,15 @@ public class BranchImportFile extends ImportFile{
 		super.fnc = "支店";
 	}
 
-	protected void ckCode(String code) throws MyException{
-		//支店コードは３桁固定
+	protected String ckCode(String code){
+		//支店コードは3桁固定
 		if(code.length() != 3){
-			throw new MyException("支店定義ファイルのフォーマットが不正です");
+			return null;
 		}
-
 		//支店コードは数字固定
-		try {
-			Integer.parseInt(code);
-		} catch (NumberFormatException nfex) {
-			throw new MyException("支店定義ファイルのフォーマットが不正です");
+		if(code.matches("[0-9]*$") != true){
+			return null;
 		}
-	}
-
-	protected void ckName(String name) throws MyException{
-		//支店名にカンマは入らない
-		if(name.indexOf(",") != -1){
-			throw new MyException("支店定義ファイルのフォーマットが不正です");
-		//支店名に改行は入らない
-		}else if(name.indexOf("\\r\\n") != -1){
-			throw new MyException("支店定義ファイルのフォーマットが不正です");
-		}
-
+		return "";
 	}
 }

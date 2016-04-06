@@ -17,12 +17,13 @@ abstract public class OutputFile {
 
 	String trgFileName;
 
-	public void outPut(String pass,HashMap defMap,HashMap earingsMap){
+	public void outPut(String path,HashMap defMap,HashMap earingsMap){
 
 		HashMap hm = new HashMap();
 
 		try {
-			File file = new File(pass + "\\" + trgFileName);
+			//パスの区切りは環境依存するので実行環境により変わるようにする
+			File file = new File(path + File.separatorChar + trgFileName);
 			FileWriter fw = new FileWriter(file);
 			BufferedWriter bw = new BufferedWriter(fw);
 
@@ -39,7 +40,6 @@ abstract public class OutputFile {
 				//コード+名前をキーとして設定
 				hm.put(code + "," + name, sumAmt);
 			}
-
 			//コード別集計ファイルのmapを合計金額で降順するためにソート
 			List<Map.Entry> entries = new LinkedList(hm.entrySet());
 			Collections.sort(entries, new Comparator<Map.Entry>() {
@@ -49,15 +49,13 @@ abstract public class OutputFile {
 					return int2.compareTo(int1);
 				}
 			});
-
 			for (Map.Entry entry : entries) {
-				bw.write(entry.getKey() + ", " + entry.getValue() +  "\r\n");
+				//改行コードは環境依存するので実行環境により変わるようにする
+				bw.write(entry.getKey() + ", " + entry.getValue() +  System.getProperty("line.separator"));
 			}
-
 			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
 }
