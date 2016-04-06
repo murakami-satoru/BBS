@@ -1,4 +1,4 @@
-package iccom.satoru_uematsu.earings;
+package jp.co.iccom.satoru_uematsu.earings;
 
 public class CommoditySumOutputFile extends OutputFile{
 	CommoditySumOutputFile(){

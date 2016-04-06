@@ -1,4 +1,4 @@
-package iccom.satoru_uematsu.earings;
+package jp.co.iccom.satoru_uematsu.earings;
 
 import java.util.HashMap;
 
@@ -11,17 +11,14 @@ public class SumEarings {
 
 		try{
 			//支店定義ファイルの取得
-			System.out.println("支店定義ファイルを読み込みます");
 			BranchImportFile bIF = new BranchImportFile();
 			HashMap branchMap = bIF.dataImport(bIF.fileImport(pass));
 
 			//商品定義ファイルの取得
-//			System.out.println("商品定義ファイルを読み込みます");
 			CommodityImportFile cIF = new CommodityImportFile();
 			HashMap commodityMap = cIF.dataImport(cIF.fileImport(pass));
 
 			//売上ファイルの取得
-//			System.out.println("売上ファイルを読み込みます");
 			EaringsImportFile eIF = new EaringsImportFile();
 			HashMap earingsMap = eIF.sumEarings(eIF.fileImport(pass),branchMap,commodityMap);
 

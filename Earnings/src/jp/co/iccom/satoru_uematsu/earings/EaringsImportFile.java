@@ -1,4 +1,4 @@
-package iccom.satoru_uematsu.earings;
+package jp.co.iccom.satoru_uematsu.earings;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -128,9 +128,6 @@ public class EaringsImportFile {
 	}
 
 	protected void ckSumAmt(BigDecimal sumAmt) throws MyException{
-
-//		System.out.println(sumAmt + " : " + sumAmt.precision());
-
 		if(sumAmt.precision() > 10){
 			throw new MyException("合計金額が10桁を超えました");
 		}

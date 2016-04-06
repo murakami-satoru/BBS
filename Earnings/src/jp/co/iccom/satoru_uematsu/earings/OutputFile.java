@@ -1,4 +1,4 @@
-package iccom.satoru_uematsu.earings;
+package jp.co.iccom.satoru_uematsu.earings;
 
 import java.io.BufferedWriter;
 import java.io.File;
