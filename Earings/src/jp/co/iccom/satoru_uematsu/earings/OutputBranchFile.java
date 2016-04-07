@@ -1,7 +1,7 @@
 package jp.co.iccom.satoru_uematsu.earings;
 
-public class BranchSumOutputFile extends OutputFile {
-	BranchSumOutputFile(){
+public class OutputBranchFile extends OutputFile {
+	OutputBranchFile(){
 		super.trgFileName = "branch.out";
 	}
 }

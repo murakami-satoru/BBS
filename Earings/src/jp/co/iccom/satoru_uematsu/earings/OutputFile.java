@@ -17,44 +17,42 @@ abstract public class OutputFile {
 
 	String trgFileName;
 
-	public void outPut(String path,HashMap defMap,HashMap earingsMap){
-
-		HashMap hm = new HashMap();
+	public void output(String path,Map<String,String> definitionData,Map<String,BigDecimal> earingsData){
+		Map outputData = new HashMap();
 
 		try {
 			//パスの区切りは環境依存するので実行環境により変わるようにする
-			File file = new File(path + File.separatorChar + trgFileName);
-			FileWriter fw = new FileWriter(file);
-			BufferedWriter bw = new BufferedWriter(fw);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path + File.separatorChar + trgFileName)));
 
 			//定義ファイルのコードをiteratorに保持
-			Iterator ite = defMap.keySet().iterator();
-			while(ite.hasNext()){
-				String code = (String) ite.next();
-				String name = (String) defMap.get(code);
-				BigDecimal sumAmt = (BigDecimal) earingsMap.get(code);
+			Iterator<String> codes = definitionData.keySet().iterator();
+			while(codes.hasNext()){
+				String code = codes.next();
+				String name = definitionData.get(code);
+				BigDecimal sumAmount = earingsData.get(code);
 				//売上額がなかったものは「null」と表示されるので「0」を入れる
-				if(sumAmt == null){
-					sumAmt = new BigDecimal(0);
+				if(sumAmount == null){
+					sumAmount = new BigDecimal(0);
 				}
 				//コード+名前をキーとして設定
-				hm.put(code + "," + name, sumAmt);
+				outputData.put(code + "," + name, sumAmount);
 			}
 			//コード別集計ファイルのmapを合計金額で降順するためにソート
-			List<Map.Entry> entries = new LinkedList(hm.entrySet());
+			List<Map.Entry> entries = new LinkedList(outputData.entrySet());
 			Collections.sort(entries, new Comparator<Map.Entry>() {
 				public int compare(Map.Entry o1,Map.Entry o2) {
-					BigDecimal int1 = (BigDecimal) o1.getValue();
-					BigDecimal int2 = (BigDecimal) o2.getValue();
-					return int2.compareTo(int1);
+					BigDecimal currentAmount = (BigDecimal) o1.getValue();
+					BigDecimal nextAmount = (BigDecimal) o2.getValue();
+					return nextAmount.compareTo(currentAmount);
 				}
 			});
 			for (Map.Entry entry : entries) {
 				//改行コードは環境依存するので実行環境により変わるようにする
-				bw.write(entry.getKey() + ", " + entry.getValue() +  System.getProperty("line.separator"));
+				bw.write(entry.getKey() + "," + entry.getValue() +  System.getProperty("line.separator"));
 			}
 			bw.close();
 		} catch (IOException e) {
+			System.out.println("予期せぬエラーが発生しました");
 			e.printStackTrace();
 		}
 	}

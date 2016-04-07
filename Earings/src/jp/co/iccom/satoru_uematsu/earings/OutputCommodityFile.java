@@ -1,7 +1,7 @@
 package jp.co.iccom.satoru_uematsu.earings;
 
-public class CommoditySumOutputFile extends OutputFile{
-	CommoditySumOutputFile(){
+public class OutputCommodityFile extends OutputFile{
+	OutputCommodityFile(){
 		super.trgFileName = "commodity.out";
 	}
 }
