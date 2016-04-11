@@ -1,55 +1,57 @@
-DROP TABLE IF EXISTS BRANCH;
-CREATE TABLE BRANCH(
-	BRANCH_ID	INTEGER			NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	BRANCH_NAME	VARCHAR(20)		NOT NULL
+drop table if exists branchs;
+create table branchs(
+	id		integer			not null auto_increment primary key,
+	name	varchar(20)		not null
 );
 
-DROP TABLE IF EXISTS DEPT;
-CREATE TABLE DEPT(
-	DEPT_ID		INTEGER			NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	DEPT_NAME	VARCHAR(20)		NOT NULL
+drop table if exists departments;
+create table departments(
+	id		integer			not null auto_increment primary key,
+	name	varchar(20)		not null
 );
 
-DROP TABLE IF EXISTS USER;
-CREATE TABLE USER(
-	USER_ID		INTEGER			NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	LOGIN_ID	VARCHAR(20)		NOT NULL,
-	PASSWORD	VARCHAR(255)	NOT NULL,
-	USER_NAME	VARCHAR(10)		NOT NULL,
-	BRANCH_ID	INTEGER			NOT NULL,
-	DEPT_ID		INTEGER			NOT NULL,
-	LOCK_FLG	INTEGER			DEFAULT 0
+drop table if exists users;
+create table users(
+	id				integer			not null auto_increment primary key,
+	login_id		varchar(20)		not null,
+	password		varchar(255)	not null,
+	name			varchar(10)		not null,
+	branch_id		integer			not null,
+	department_id	integer			not null,
+	is_locked		integer			default 0
 );
 
-DROP TABLE IF EXISTS POST;
-CREATE TABLE POST(
-	POST_ID		INTEGER			NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	POST_TITLE	VARCHAR(50)		NOT NULL,
-	TEXT		TEXT			NOT NULL,
-	CATEGORY	VARCHAR(10)		NOT NULL,
-	INSERT_DATE TIMESTAMP		,
-	USER_NAME	VARCHAR(10)		NOT NULL
+drop table if exists posts;
+create table posts(
+	id			integer			not null auto_increment primary key,
+	post_title	varchar(50)		not null,
+	text		text			not null,
+	category	varchar(10)		not null,
+	user_name	varchar(10)		not null
+	created_date timestamp		,
+	updated_date timestamp		
 );
 
-DROP TABLE IF EXISTS COMMENT;
-CREATE TABLE COMMENT(
-	COMMENT_ID	INTEGER			NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	TEXT		TEXT			NOT NULL,
-	INSERT_DATE TIMESTAMP		,
-	USER_NAME	VARCHAR(10)		NOT NULL,
-	POST_ID		INTEGER
+drop table if exists comments;
+create table comments(
+	id			integer			not null auto_increment primary key,
+	text		text			not null,
+	user_name	varchar(10)		not null,
+	post_id		integer			,
+	created_date timestamp		,
+	updated_date timestamp		
 );
 
-INSERT INTO BRANCH (BRANCH_NAME) VALUES ('ñ{é–');
-INSERT INTO BRANCH (BRANCH_NAME) VALUES ('ìåãûéxìX');
-INSERT INTO BRANCH (BRANCH_NAME) VALUES ('â´ìÍéxìX');
-INSERT INTO BRANCH (BRANCH_NAME) VALUES ('ñkäCìπéxìX');
+insert into branchs (name) values ('ñ{é–');
+insert into branchs (name) values ('ìåãûéxìX');
+insert into branchs (name) values ('â´ìÍéxìX');
+insert into branchs (name) values ('ñkäCìπéxìX');
 
-INSERT INTO DEPT (DEPT_NAME) VALUES ('ä«óùé“');
-INSERT INTO DEPT (DEPT_NAME) VALUES ('ëçñ±êléñíSìñé“');
-INSERT INTO DEPT (DEPT_NAME) VALUES ('èÓïÒä«óùíSìñé“');
-INSERT INTO DEPT (DEPT_NAME) VALUES ('éxìXí∑');
-INSERT INTO DEPT (DEPT_NAME) VALUES ('é–àı');
+insert into departments (name) values ('ä«óùé“');
+insert into departments (name) values ('ëçñ±êléñíSìñé“');
+insert into departments (name) values ('èÓïÒä«óùíSìñé“');
+insert into departments (name) values ('éxìXí∑');
+insert into departments (name) values ('é–àı');
 
-INSERT INTO USER (LOGIN_ID,PASSWORD,USER_NAME,BRANCH_ID,DEPT_ID) 
-			VALUES ('admin','admin','ä«óùé“',1,1);
+insert into users (login_id,password,name,branch_id,dept_id) 
+			values ('admin','admin','åfé¶î¬ä«óùé“',1,1);
